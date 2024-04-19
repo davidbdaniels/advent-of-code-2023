@@ -2,6 +2,8 @@ package org.example
 
 import java.io.File
 
+const val INPUT_DIRECTORY = "advent-of-code_input-files"
+
 fun main() {
 //    day01Main()
     day02Main()
@@ -12,7 +14,7 @@ fun day01Main() {
     var finalAnswer = 0
 
     // Read a file and parse into separate lines
-    val lines = File("input_files/Day1_Input.txt").readLines()
+    val lines = File("$INPUT_DIRECTORY/Day1_Input.txt").readLines()
 
     for ((index, line: String) in lines.withIndex()) {
         println("Line $index: $line")
@@ -31,7 +33,7 @@ fun day02Main() {
     val possibleGameIds: MutableList<Int> = mutableListOf()
 
     // Read a file and parse into separate lines
-    val lines = File("input_files/Day02_Input.txt").readLines()
+    val lines = File("$INPUT_DIRECTORY/Day02_Input.txt").readLines()
 
     val cubes: CubeTrio = CubeTrio(12,13,14)
 
