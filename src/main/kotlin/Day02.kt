@@ -41,7 +41,7 @@ class Day02 {
         return false
     }
 
-    private fun createCubeTrios(line: String): List<CubeTrio> {
+    fun createCubeTrios(line: String): List<CubeTrio> {
 
         // TODO - Implement this method
         // This method should parse the line and create a list of CubeTrio objects

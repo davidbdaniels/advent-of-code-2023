@@ -6,7 +6,8 @@ const val INPUT_DIRECTORY = "advent-of-code_input-files"
 
 fun main() {
 //    day01Main()
-    day02Main()
+//    day02Main()
+    day02bMain()
 }
 
 fun day01Main() {
@@ -46,4 +47,24 @@ fun day02Main() {
 
     finalAnswer = day02.addIds(possibleGameIds)
     println("Final Answer: $finalAnswer")
+}
+
+fun day02bMain() {
+
+    val day02 = Day02()
+    val day02b = Day02b()
+    var sumOfPowers = 0
+    val powers: MutableList<Int> = mutableListOf()
+
+    // Read a file and parse into separate lines
+    val lines = File("$INPUT_DIRECTORY/Day02_Input.txt").readLines()
+
+    for (line in lines) {
+        var answerPerLine: Int = 0
+        answerPerLine = day02b.multiplySetOfCubes(day02b.determineMaximumCubesPerColor(line))
+        powers.add(answerPerLine)
+    }
+
+    sumOfPowers = day02.addIds(powers)
+    println("Final Answer: $sumOfPowers")
 }
