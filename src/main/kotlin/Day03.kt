@@ -2,7 +2,7 @@ package org.example
 
 class Day03 {
 
-    fun identifyNumberAdjacentToSymbol(lines: List<String>): List<Number> {
+    fun getNumbersAdjacentToSymbol(lines: List<String>): List<Number> {
 
         val numbers: MutableList<Number> = mutableListOf()
         for ((lineIndex, line: String) in lines.withIndex()) {
@@ -22,7 +22,6 @@ class Day03 {
                         number.value = numValue.toInt()
                         number.length = length
                         numbers.add(number)
-                        println("Line $lineIndex: Number: ${number.value}, Length: ${number.length}, Starting Point: ${number.startingPoint.toList()}")
                     }
                 } else {
                     number = Number()
@@ -49,7 +48,10 @@ class Day03 {
         for (number in numbers) {
             if (numberIsAdjacentToSymbol(number, lines)) {
                 number.adjacentToSymbol = true
-                println("Adjacent to symbol: ${number.value}")
+                println("Adjacent: ${number.value}")
+            } else {
+                number.adjacentToSymbol = false
+                println("Not Adjacent: ${number.value}")
             }
         }
 
@@ -57,9 +59,11 @@ class Day03 {
     }
 
     fun numberIsAdjacentToSymbol(number: Number, lines: List<String>): Boolean {
-        return isAdjacentOnCurrentRow(number, lines)
-                || isAdjacentOnPreviousRow(number, lines)
-                || isAdjacentOnNextRow(number, lines)
+        val currentRow = isAdjacentOnCurrentRow(number, lines)
+        val previousRow = isAdjacentOnPreviousRow(number, lines)
+        val nextRow = isAdjacentOnNextRow(number, lines)
+
+        return currentRow || previousRow || nextRow
     }
 
     private fun isAdjacentOnCurrentRow(number: Number, lines: List<String>): Boolean {
@@ -83,7 +87,7 @@ class Day03 {
 
     private fun isDiagonallyAbove(number: Number, lines: List<String>): Boolean {
         return isSymbol(number.startingPoint[0] - 1, number.startingPoint[1] - 1, lines)
-                || isSymbol(number.startingPoint[0] - 1, number.startingPoint[1] + number.length + 1, lines)
+                || isSymbol(number.startingPoint[0] - 1, number.startingPoint[1] + number.length, lines)
     }
 
     private fun isImmediatelyBelow(number: Number, lines: List<String>): Boolean {
@@ -95,7 +99,7 @@ class Day03 {
 
     private fun isDiagonallyBelow(number: Number, lines: List<String>): Boolean {
         return isSymbol(number.startingPoint[0] + 1, number.startingPoint[1] - 1, lines)
-                || isSymbol(number.startingPoint[0] + 1, number.startingPoint[1] + number.length + 1, lines)
+                || isSymbol(number.startingPoint[0] + 1, number.startingPoint[1] + number.length, lines)
     }
 
     private fun isOnImmediateLeft(number: Number, lines: List<String>): Boolean {

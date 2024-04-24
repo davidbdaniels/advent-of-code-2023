@@ -46,7 +46,7 @@ class Day03Test {
     @Test
     fun testDiagonallyAboveLeft_3_Digits() {
         val lines = listOf("*....", ".123.")
-        val number = createNumberObject(12, 2, arrayOf(1, 1))
+        val number = createNumberObject(123, 3, arrayOf(1, 1))
 
         val result = day03.numberIsAdjacentToSymbol(number, lines)
         assertEquals(true, result)
@@ -55,7 +55,7 @@ class Day03Test {
     @Test
     fun testDiagonallyAboveRight_3_Digits() {
         val lines = listOf("....*", ".123.")
-        val number = createNumberObject(12, 2, arrayOf(1, 1))
+        val number = createNumberObject(123, 3, arrayOf(1, 1))
 
         val result = day03.numberIsAdjacentToSymbol(number, lines)
         assertEquals(true, result)
@@ -131,6 +131,24 @@ class Day03Test {
 
         val result = day03.numberIsAdjacentToSymbol(number, lines)
         assertEquals(true, result)
+    }
+
+    @Test
+    fun testDiagonallyBelowLeft_3_Digits_onEdgeOfLine() {
+        val lines = listOf(".123", "*...")
+        val number = createNumberObject(123, 3, arrayOf(0, 1))
+
+        val result = day03.numberIsAdjacentToSymbol(number, lines)
+        assertEquals(true, result)
+    }
+
+    @Test
+    fun testNotAdjacent_returnFalse() {
+        val lines = listOf("..../", "123..")
+        val number = createNumberObject(123, 3, arrayOf(1, 0))
+
+        val result = day03.numberIsAdjacentToSymbol(number, lines)
+        assertEquals(false, result)
     }
 
     private fun createNumberObject(value: Int, length: Int, startingPoint: Array<Int>): Number {

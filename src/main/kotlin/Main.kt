@@ -11,6 +11,11 @@ fun main() {
     day03Main()
 }
 
+// 536698 (too high)
+// 535698 (too high)
+// ???
+// 533421 (too low)  - EOD on 4/24/24
+
 fun day01Main() {
     val day01 = Day01()
     var finalAnswer = 0
@@ -77,7 +82,7 @@ fun day03Main() {
     val lines = File("$INPUT_DIRECTORY/Day03_Input.txt").readLines()
 
     val day03 = Day03()
-    val numbers = day03.identifyNumberAdjacentToSymbol(lines)
+    val numbers = day03.getNumbersAdjacentToSymbol(lines)
 
     var finalAnswer = 0
     var countOfAdjacentNumbers = 0
