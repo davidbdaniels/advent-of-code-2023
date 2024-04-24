@@ -7,7 +7,8 @@ const val INPUT_DIRECTORY = "advent-of-code_input-files"
 fun main() {
 //    day01Main()
 //    day02Main()
-    day02bMain()
+//    day02bMain()
+    day03Main()
 }
 
 fun day01Main() {
@@ -53,18 +54,41 @@ fun day02bMain() {
 
     val day02 = Day02()
     val day02b = Day02b()
-    var sumOfPowers = 0
+
     val powers: MutableList<Int> = mutableListOf()
+    var sumOfPowers = 0
 
     // Read a file and parse into separate lines
     val lines = File("$INPUT_DIRECTORY/Day02_Input.txt").readLines()
 
     for (line in lines) {
-        var answerPerLine: Int = 0
-        answerPerLine = day02b.multiplySetOfCubes(day02b.determineMaximumCubesPerColor(line))
-        powers.add(answerPerLine)
+        val maxCubes = day02b.determineMaximumCubesPerColor(line)
+        val powerOfCubes = day02b.multiplySetOfCubes(maxCubes)
+        powers.add(powerOfCubes)
     }
 
     sumOfPowers = day02.addIds(powers)
     println("Final Answer: $sumOfPowers")
+}
+
+fun day03Main() {
+
+    // Read a file and parse into separate lines
+    val lines = File("$INPUT_DIRECTORY/Day03_Input.txt").readLines()
+
+    val day03 = Day03()
+    val numbers = day03.identifyNumberAdjacentToSymbol(lines)
+
+    var finalAnswer = 0
+    var countOfAdjacentNumbers = 0
+
+    for (number in numbers) {
+        if (number.adjacentToSymbol) {
+            finalAnswer += number.value
+            countOfAdjacentNumbers += 1
+        }
+    }
+
+    println("Count of Adjacent Numbers: $countOfAdjacentNumbers")
+    println("Final Answer: $finalAnswer")
 }
