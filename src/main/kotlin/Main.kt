@@ -85,15 +85,20 @@ fun day03Main() {
     val numbers = day03.getNumbersAdjacentToSymbol(lines)
 
     var finalAnswer = 0
-    var countOfAdjacentNumbers = 0
+    var adjacentNumberCount = 0
+    var nonAdjacentNumberCount = 0
 
     for (number in numbers) {
         if (number.adjacentToSymbol) {
             finalAnswer += number.value
-            countOfAdjacentNumbers += 1
+            adjacentNumberCount += 1
+        } else {
+            nonAdjacentNumberCount += 1
         }
     }
 
-    println("Count of Adjacent Numbers: $countOfAdjacentNumbers")
+    println("Count of Adjacent Numbers: $adjacentNumberCount")
+    println("Count of Non-Adjacent Numbers: $nonAdjacentNumberCount")
+
     println("Final Answer: $finalAnswer")
 }

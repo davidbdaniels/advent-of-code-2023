@@ -143,6 +143,17 @@ class Day03Test {
     }
 
     @Test
+    fun testDiagonallyAboveLeft_hyphen() {
+        val lines = listOf(
+            "........249....291...........448.622..228.......308.........189...............629........-...................*............594..127......782.",
+            "..................*173..817.....................*.......91.....*..#................*649...492...400.........17...878.....*..........950.....")
+        val number = createNumberObject(492, 3, arrayOf(1, 90))
+
+        val result = day03.numberIsAdjacentToSymbol(number, lines)
+        assertEquals(true, result)
+    }
+
+    @Test
     fun testNotAdjacent_returnFalse() {
         val lines = listOf("..../", "123..")
         val number = createNumberObject(123, 3, arrayOf(1, 0))

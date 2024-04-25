@@ -67,47 +67,74 @@ class Day03 {
     }
 
     private fun isAdjacentOnCurrentRow(number: Number, lines: List<String>): Boolean {
-        return isOnImmediateLeft(number, lines) || isOnImmediateRight(number, lines)
+        return isOnImmediateLeft(number, lines)
+                || isOnImmediateRight(number, lines)
     }
 
     private fun isAdjacentOnPreviousRow(number: Number, lines: List<String>): Boolean {
-        return isImmediatelyAbove(number, lines) || isDiagonallyAbove(number, lines)
+        return isImmediatelyAbove(number, lines)
+                || isDiagonallyAboveLeft(number, lines)
+                || isDiagonallyAboveRight(number, lines)
     }
 
     private fun isAdjacentOnNextRow(number: Number, lines: List<String>): Boolean {
-        return isImmediatelyBelow(number, lines) || isDiagonallyBelow(number, lines)
+        return isImmediatelyBelow(number, lines)
+                || isDiagonallyBelowLeft(number, lines)
+                || isDiagonallyBelowRight(number, lines)
     }
 
     private fun isImmediatelyAbove(number: Number, lines: List<String>): Boolean {
         return isSymbol(number.startingPoint[0] - 1, number.startingPoint[1], lines)
-                || isSymbol(number.startingPoint[0] - 1, number.startingPoint[1] + number.length - 2, lines)
-                || isSymbol(number.startingPoint[0] - 1, number.startingPoint[1] + number.length - 1, lines)
-                || isSymbol(number.startingPoint[0] - 1, number.startingPoint[1] + number.length, lines)
+                || isSymbol(number.startingPoint[0] - 1, number.startingPoint[1] + 1, lines)
+                || isSymbol(number.startingPoint[0] - 1, number.startingPoint[1] + 2, lines)
     }
 
-    private fun isDiagonallyAbove(number: Number, lines: List<String>): Boolean {
-        return isSymbol(number.startingPoint[0] - 1, number.startingPoint[1] - 1, lines)
-                || isSymbol(number.startingPoint[0] - 1, number.startingPoint[1] + number.length, lines)
+    private fun isDiagonallyAboveLeft(number: Number, lines: List<String>): Boolean {
+        val rowIndex = number.startingPoint[0] - 1
+        val colIndex = number.startingPoint[1] - 1
+
+        return isSymbol(rowIndex, colIndex, lines)
+    }
+
+    private fun isDiagonallyAboveRight(number: Number, lines: List<String>): Boolean {
+        val rowIndex = number.startingPoint[0] - 1
+        val colIndex =  number.startingPoint[1] + number.length
+
+        return isSymbol(rowIndex, colIndex, lines)
     }
 
     private fun isImmediatelyBelow(number: Number, lines: List<String>): Boolean {
         return isSymbol(number.startingPoint[0] + 1, number.startingPoint[1], lines)
-                || isSymbol(number.startingPoint[0] + 1, number.startingPoint[1] + number.length - 2, lines)
-                || isSymbol(number.startingPoint[0] + 1, number.startingPoint[1] + number.length - 1, lines)
-                || isSymbol(number.startingPoint[0] + 1, number.startingPoint[1] + number.length, lines)
+                || isSymbol(number.startingPoint[0] + 1, number.startingPoint[1] + 1, lines)
+                || isSymbol(number.startingPoint[0] + 1, number.startingPoint[1] + 2, lines)
     }
 
-    private fun isDiagonallyBelow(number: Number, lines: List<String>): Boolean {
-        return isSymbol(number.startingPoint[0] + 1, number.startingPoint[1] - 1, lines)
-                || isSymbol(number.startingPoint[0] + 1, number.startingPoint[1] + number.length, lines)
+    private fun isDiagonallyBelowLeft(number: Number, lines: List<String>): Boolean {
+        val rowIndex = number.startingPoint[0] + 1
+        val colIndex = number.startingPoint[1] - 1
+
+        return isSymbol(rowIndex, colIndex, lines)
+    }
+
+    private fun isDiagonallyBelowRight(number: Number, lines: List<String>): Boolean {
+        val rowIndex = number.startingPoint[0] + 1
+        val colIndex =  number.startingPoint[1] + number.length
+
+        return isSymbol(rowIndex, colIndex, lines)
     }
 
     private fun isOnImmediateLeft(number: Number, lines: List<String>): Boolean {
-        return isSymbol(number.startingPoint[0], number.startingPoint[1] - 1, lines)
+        val rowIndexOriginal = number.startingPoint[0]
+        val colIndexOriginal = number.startingPoint[1]
+
+        return isSymbol(rowIndexOriginal, colIndexOriginal - 1, lines)
     }
 
     private fun isOnImmediateRight(number: Number, lines: List<String>): Boolean {
-        return isSymbol(number.startingPoint[0], number.startingPoint[1] + number.length, lines)
+        val rowIndexOriginal = number.startingPoint[0]
+        val colIndexOriginal = number.startingPoint[1]
+
+        return isSymbol(rowIndexOriginal, colIndexOriginal + number.length, lines)
     }
 
     private fun isSymbol (row: Int, column: Int, lines: List<String>): Boolean {
