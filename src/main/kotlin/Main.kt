@@ -5,20 +5,8 @@ import java.io.File
 const val INPUT_DIRECTORY = "advent-of-code_input-files"
 
 fun main() {
-//    day01Main()
-//    day02Main()
-//    day02bMain()
-    day03Main()
+    day03bMain()
 }
-
-// ------
-// 536698 (too high)
-// 535698 (too high)
-// -----------------------
-// ?????? (correct answer)
-// -----------------------
-// 533421 (too low)  - EOD on 4/24/24
-// ------
 
 fun day01Main() {
     val day01 = Day01()
@@ -104,6 +92,25 @@ fun day03Main() {
     println("---------------------------------")
     println("Count of Adjacent Numbers: $adjacentNumberCount")
     println("Count of Non-Adjacent Numbers: $nonAdjacentNumberCount")
+    println("---------------------------------")
+    println("Final Answer: $finalAnswer")
+    println("---------------------------------")
+}
+
+fun day03bMain() {
+
+    // Read a file and parse into separate lines
+    val lines = File("$INPUT_DIRECTORY/Day03_Input.txt").readLines()
+
+    val day03 = Day03()
+    val gearRatios = day03.getGearRatios(lines)
+
+    var finalAnswer = 0
+
+    for (gearRatio in gearRatios) {
+        finalAnswer += gearRatio
+    }
+
     println("---------------------------------")
     println("Final Answer: $finalAnswer")
     println("---------------------------------")

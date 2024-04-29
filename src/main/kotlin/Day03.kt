@@ -165,15 +165,79 @@ class Day03 {
         if (row > maxRow || column > maxColumn || row < 0 || column < 0) {
             return false
         }
-        return (!isDot(row, column, lines) && !isNumber(row, column, lines))
+        return (!isDot(row, column, lines) && !isDigit(row, column, lines))
     }
 
     private fun isDot(row: Int, column: Int, lines: List<String>): Boolean {
         return lines[row][column] == '.'
     }
 
-    private fun isNumber(row: Int, column: Int, lines: List<String>): Boolean {
+    private fun isDigit(row: Int, column: Int, lines: List<String>): Boolean {
         return lines[row][column].isDigit()
+    }
+
+    /*
+     Methods for Day 3 Part 2 (Day03b)
+     */
+
+    fun getGearRatios(lines: List<String>): List<Int> {
+        val gearRatios: MutableList<Int> = mutableListOf()
+        val numbers: MutableList<Number> = mutableListOf()
+
+        for ((lineIndex, line: String) in lines.withIndex()) {
+            addNumbersToList(line, numbers, lineIndex)
+        }
+
+        for ((lineIndex, line: String) in lines.withIndex()) {
+            println("Line $lineIndex: $line")
+            val numberPair: List<Int> = getNumberPairAdjacentToGearSymbol(line, numbers)
+            if (numberPair.isNotEmpty()) {
+                val product = numberPair[0] * numberPair[1]
+                gearRatios.add(product)
+            }
+        }
+
+        return gearRatios
+    }
+
+    fun getNumberPairAdjacentToGearSymbol(line: String, numbers: MutableList<Number>): List<Int> {
+        var numberPair: MutableList<Int> = mutableListOf()
+
+        for (char in line) {
+            if (isGear(char)) {
+                // TODO: Implement logic to find the two numbers adjacent to the gear symbol
+            }
+        }
+
+        return numberPair
+    }
+
+    private fun isGear(char: Char): Boolean {
+        return char == '*'
+    }
+
+    private fun getAdjacentNumber(row: Int, column: Int, lines: List<String>,
+                                  numbers: MutableList<Number>): Number {
+
+        val maxRow = lines.size - 1
+        val maxColumn = lines[0].length - 1
+        val number = Number()
+
+        if (row > maxRow || column > maxColumn || row < 0 || column < 0) {
+            return number
+        }
+
+        if (isDigit(row, column, lines)) {
+            number.value = getNumberValue(row, column, numbers)
+            return number
+        } else {
+            return number
+        }
+    }
+
+    private fun getNumberValue(row: Int, column: Int, numbers: MutableList<Number>): Int {
+        // TODO Get value of number at the given row and column
+        return 0
     }
 }
 
