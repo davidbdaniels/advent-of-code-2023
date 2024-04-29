@@ -101,8 +101,10 @@ fun day03Main() {
         }
     }
 
+    println("---------------------------------")
     println("Count of Adjacent Numbers: $adjacentNumberCount")
     println("Count of Non-Adjacent Numbers: $nonAdjacentNumberCount")
-
+    println("---------------------------------")
     println("Final Answer: $finalAnswer")
+    println("---------------------------------")
 }

@@ -143,7 +143,7 @@ class Day03Test {
     }
 
     @Test
-    fun testDiagonallyAboveLeft_hyphen() {
+    fun testFullLine_diagonallyAboveLeft_hyphen_492() {
         val lines = listOf(
             "........249....291...........448.622..228.......308.........189...............629........-...................*............594..127......782.",
             "..................*173..817.....................*.......91.....*..#................*649...492...400.........17...878.....*..........950.....")
@@ -160,6 +160,42 @@ class Day03Test {
 
         val result = day03.numberIsAdjacentToSymbol(number, lines)
         assertEquals(false, result)
+    }
+
+    @Test
+    fun testNotAdjacent_endOfLine_returnFalse() {
+        val lines = listOf("....", ".686", "....")
+        val number = createNumberObject(686, 3, arrayOf(1, 1))
+
+        val result = day03.numberIsAdjacentToSymbol(number, lines)
+        assertEquals(false, result)
+    }
+
+    @Test
+    fun testAdjacent_endOfLine_returnTrue() {
+        val lines = listOf("*...", ".395", "....")
+        val number = createNumberObject(395, 3, arrayOf(1, 1))
+
+        val result = day03.numberIsAdjacentToSymbol(number, lines)
+        assertEquals(true, result)
+    }
+
+    @Test
+    fun testAdjacent_diagonallyBelowLeft_endOfLine_returnTrue() {
+        val lines = listOf("....", ".844", "*...")
+        val number = createNumberObject(844, 3, arrayOf(1, 1))
+
+        val result = day03.numberIsAdjacentToSymbol(number, lines)
+        assertEquals(true, result)
+    }
+
+    @Test
+    fun testAdjacent_diagonallyBelowRight_startOfLine_returnTrue() {
+        val lines = listOf("....", "534.", ".../")
+        val number = createNumberObject(534, 3, arrayOf(1, 0))
+
+        val result = day03.numberIsAdjacentToSymbol(number, lines)
+        assertEquals(true, result)
     }
 
     private fun createNumberObject(value: Int, length: Int, startingPoint: Array<Int>): Number {

@@ -46,13 +46,7 @@ class Day03 {
         }
 
         for (number in numbers) {
-            if (numberIsAdjacentToSymbol(number, lines)) {
-                number.adjacentToSymbol = true
-                println("Adjacent: ${number.value}")
-            } else {
-                number.adjacentToSymbol = false
-                println("Not Adjacent: ${number.value}")
-            }
+            number.adjacentToSymbol = numberIsAdjacentToSymbol(number, lines)
         }
 
         return numbers
@@ -84,9 +78,18 @@ class Day03 {
     }
 
     private fun isImmediatelyAbove(number: Number, lines: List<String>): Boolean {
-        return isSymbol(number.startingPoint[0] - 1, number.startingPoint[1], lines)
-                || isSymbol(number.startingPoint[0] - 1, number.startingPoint[1] + 1, lines)
-                || isSymbol(number.startingPoint[0] - 1, number.startingPoint[1] + 2, lines)
+
+        val symbolIsAboveFirstDigit = isSymbol(number.startingPoint[0] - 1, number.startingPoint[1], lines)
+        val symbolIsAboveSecondDigit = isSymbol(number.startingPoint[0] - 1, number.startingPoint[1] + 1, lines)
+        val symbolIsAboveThirdDigit = isSymbol(number.startingPoint[0] - 1, number.startingPoint[1] + 2, lines)
+
+        return when (number.length) {
+            3 -> symbolIsAboveFirstDigit || symbolIsAboveSecondDigit || symbolIsAboveThirdDigit
+            2 -> symbolIsAboveFirstDigit || symbolIsAboveSecondDigit
+            1 -> symbolIsAboveFirstDigit
+            else -> throw Exception("The number has an unexpected length. It must be 1, 2, or 3 digits in length. " +
+                    "Number value: ${number.value}, Number length: ${number.length}")
+        }
     }
 
     private fun isDiagonallyAboveLeft(number: Number, lines: List<String>): Boolean {
@@ -104,9 +107,18 @@ class Day03 {
     }
 
     private fun isImmediatelyBelow(number: Number, lines: List<String>): Boolean {
-        return isSymbol(number.startingPoint[0] + 1, number.startingPoint[1], lines)
-                || isSymbol(number.startingPoint[0] + 1, number.startingPoint[1] + 1, lines)
-                || isSymbol(number.startingPoint[0] + 1, number.startingPoint[1] + 2, lines)
+
+        val symbolIsBelowFirstDigit = isSymbol(number.startingPoint[0] + 1, number.startingPoint[1], lines)
+        val symbolIsBelowSecondDigit = isSymbol(number.startingPoint[0] + 1, number.startingPoint[1] + 1, lines)
+        val symbolIsBelowThirdDigit = isSymbol(number.startingPoint[0] + 1, number.startingPoint[1] + 2, lines)
+
+        return when (number.length) {
+            3 -> symbolIsBelowFirstDigit || symbolIsBelowSecondDigit || symbolIsBelowThirdDigit
+            2 -> symbolIsBelowFirstDigit || symbolIsBelowSecondDigit
+            1 -> symbolIsBelowFirstDigit
+            else -> throw Exception("The number has an unexpected length. It must be 1, 2, or 3 digits in length. " +
+                    "Number value: ${number.value}, Number length: ${number.length}")
+        }
     }
 
     private fun isDiagonallyBelowLeft(number: Number, lines: List<String>): Boolean {
