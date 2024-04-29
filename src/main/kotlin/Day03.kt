@@ -13,6 +13,9 @@ class Day03 {
 
         for (number in numbers) {
             number.adjacentToSymbol = numberIsAdjacentToSymbol(number, lines)
+            if (!number.adjacentToSymbol) {
+                println("Non-Adjacent: ${number.value}")
+            }
         }
 
         return numbers
