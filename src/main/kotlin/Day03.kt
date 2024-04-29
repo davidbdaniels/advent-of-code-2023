@@ -5,44 +5,10 @@ class Day03 {
     fun getNumbersAdjacentToSymbol(lines: List<String>): List<Number> {
 
         val numbers: MutableList<Number> = mutableListOf()
+
         for ((lineIndex, line: String) in lines.withIndex()) {
-
             println("Line $lineIndex: $line")
-
-            var number = Number()
-            var numValue = ""
-            var length = 0
-            var charIndex = 0
-            var previousCharIsDigit: Boolean = false
-
-            for (char in line) {
-
-                if (previousCharIsDigit) {
-                    if (!char.isDigit()) {
-                        number.value = numValue.toInt()
-                        number.length = length
-                        numbers.add(number)
-                    }
-                } else {
-                    number = Number()
-                    numValue = ""
-                    length = 0
-                }
-
-                if (char.isDigit()) {
-                    numValue += char.toString()
-                    length += 1
-                    if (!previousCharIsDigit) {
-                        number.startingPoint = arrayOf(lineIndex, charIndex)
-                    }
-                    previousCharIsDigit = true
-
-                } else {
-                    previousCharIsDigit = false
-                }
-
-                charIndex+= 1
-            }
+            addNumbersToList(line, numbers, lineIndex)
         }
 
         for (number in numbers) {
@@ -50,6 +16,45 @@ class Day03 {
         }
 
         return numbers
+    }
+
+    private fun addNumbersToList(
+        line: String,
+        numbers: MutableList<Number>,
+        lineIndex: Int
+    ) {
+        var number = Number()
+        var numberString = ""
+        var charIndex = 0
+        var previousCharIsDigit: Boolean = false
+
+        for (char in line) {
+
+            if (previousCharIsDigit) {
+                if (!char.isDigit()) {
+                    number.value = numberString.toInt()
+                    numbers.add(number)
+                }
+            } else {
+                number = Number()
+                number.length = 0
+                numberString = ""
+            }
+
+            if (char.isDigit()) {
+                numberString += char.toString()
+                number.length += 1
+                if (!previousCharIsDigit) {
+                    number.startingPoint = arrayOf(lineIndex, charIndex)
+                }
+                previousCharIsDigit = true
+
+            } else {
+                previousCharIsDigit = false
+            }
+
+            charIndex += 1
+        }
     }
 
     fun numberIsAdjacentToSymbol(number: Number, lines: List<String>): Boolean {
