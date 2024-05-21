@@ -200,8 +200,8 @@ class Day03 {
         return gearRatios
     }
 
-    fun getNumberPairAdjacentToGearSymbol(line: String, numbers: MutableList<Number>): List<Int> {
-        var numberPair: MutableList<Int> = mutableListOf()
+    private fun getNumberPairAdjacentToGearSymbol(line: String, numbers: MutableList<Number>): List<Int> {
+        val numberPair: MutableList<Int> = mutableListOf()
 
         for (char in line) {
             if (isGear(char)) {
@@ -228,16 +228,31 @@ class Day03 {
         }
 
         if (isDigit(row, column, lines)) {
-            number.value = getNumberValue(row, column, numbers)
-            return number
+            return findNumberAtLocation(row, column, numbers)
         } else {
             return number
         }
     }
 
-    private fun getNumberValue(row: Int, column: Int, numbers: MutableList<Number>): Int {
-        // TODO Get value of number at the given row and column
-        return 0
+    fun findNumberAtLocation(row: Int, column: Int, numbers: MutableList<Number>): Number {
+//        for (number in numbers) {
+//            if (number.startingPoint[0] == row) {
+//                for (digit: Int = 0; digit < number.length; digit++) {
+//                    if (number.startingPoint[1] + digit == column) {
+//                        return number.value
+//                    }
+//                }
+//            }
+//        }
+
+        // Get value of number at the given row and column
+        val foundNumber = numbers.firstOrNull { number ->
+            number.startingPoint[0] == row && IntRange(0, number.length - 1).any { digit ->
+                number.startingPoint[1] + digit == column
+            }
+        }?: Number()
+
+        return foundNumber
     }
 }
 

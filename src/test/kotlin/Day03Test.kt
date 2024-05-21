@@ -198,6 +198,51 @@ class Day03Test {
         assertEquals(true, result)
     }
 
+    @Test
+    fun testFindNumberAtLocation_whenFirstDigit_returnAllThreeDigits() {
+        val row = 0
+        val col = 1
+        val numbers = mutableListOf(
+            createNumberObject(123, 3, arrayOf(0, 1)),
+            createNumberObject(456, 3, arrayOf(1, 1)),
+            createNumberObject(789, 3, arrayOf(2, 1))
+        )
+
+        val result = day03.findNumberAtLocation(row, col, numbers)
+        assertEquals(123, result.value)
+        assertEquals(3, result.length)
+    }
+
+    @Test
+    fun testFindNumberAtLocation_whenSecondDigit_returnAllThreeDigits() {
+        val row = 0
+        val col = 2
+        val numbers = mutableListOf(
+            createNumberObject(123, 3, arrayOf(0, 1)),
+            createNumberObject(456, 3, arrayOf(1, 1)),
+            createNumberObject(789, 3, arrayOf(2, 1))
+        )
+
+        val result = day03.findNumberAtLocation(row, col, numbers)
+        assertEquals(123, result.value)
+        assertEquals(3, result.length)
+    }
+
+    @Test
+    fun testFindNumberAtLocation_whenThirdDigit_returnAllThreeDigits() {
+        val row = 0
+        val col = 3
+        val numbers = mutableListOf(
+            createNumberObject(123, 3, arrayOf(0, 1)),
+            createNumberObject(456, 3, arrayOf(1, 1)),
+            createNumberObject(789, 3, arrayOf(2, 1))
+        )
+
+        val result = day03.findNumberAtLocation(row, col, numbers)
+        assertEquals(123, result.value)
+        assertEquals(3, result.length)
+    }
+
     private fun createNumberObject(value: Int, length: Int, startingPoint: Array<Int>): Number {
         val number = Number()
         number.value = value
