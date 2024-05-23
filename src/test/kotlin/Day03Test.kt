@@ -253,8 +253,8 @@ class Day03Test {
             createNumberObject(241, 3, arrayOf(2,3)),
         )
 
-        val result = day03.getNumberPairAdjacentToGearSymbol(line, rowIndex, lines, numbers)
-        val expected = mutableListOf(964, 241)
+        val result = day03.getNumberPairs(line, rowIndex, lines, numbers)
+        val expected = listOf(listOf(964, 241))
         assertEquals(expected, result)
     }
 
