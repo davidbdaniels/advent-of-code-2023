@@ -243,6 +243,21 @@ class Day03Test {
         assertEquals(3, result.length)
     }
 
+    @Test
+    fun testGetNumberPairAdjacentToGearSymbol() {
+        val rowIndex = 1
+        val line = "..*..."
+        val lines = listOf(".964..", "..*...", "...241")
+        val numbers = mutableListOf(
+            createNumberObject(964, 3, arrayOf(0,1)),
+            createNumberObject(241, 3, arrayOf(2,3)),
+        )
+
+        val result = day03.getNumberPairAdjacentToGearSymbol(line, rowIndex, lines, numbers)
+        val expected = mutableListOf(964, 241)
+        assertEquals(expected, result)
+    }
+
     private fun createNumberObject(value: Int, length: Int, startingPoint: Array<Int>): Number {
         val number = Number()
         number.value = value

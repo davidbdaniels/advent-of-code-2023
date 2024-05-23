@@ -114,4 +114,6 @@ fun day03bMain() {
     println("---------------------------------")
     println("Final Answer: $finalAnswer")
     println("---------------------------------")
+
+    // Guessed Answer: 31,106,542 (too low)
 }

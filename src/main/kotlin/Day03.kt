@@ -190,26 +190,68 @@ class Day03 {
 
         for ((lineIndex, line: String) in lines.withIndex()) {
             println("Line $lineIndex: $line")
-            val numberPair: List<Int> = getNumberPairAdjacentToGearSymbol(line, numbers)
-            if (numberPair.isNotEmpty()) {
-                val product = numberPair[0] * numberPair[1]
-                gearRatios.add(product)
+            val numberPairs: List<List<Int>> = getNumberPairs(line, lineIndex, lines, numbers)
+            for (numberPair in numberPairs) {
+                if (numberPair.size >= 2) {
+                    val product = numberPair[0] * numberPair[1]
+                    gearRatios.add(product)
+                }
             }
         }
 
         return gearRatios
     }
 
-    private fun getNumberPairAdjacentToGearSymbol(line: String, numbers: MutableList<Number>): List<Int> {
-        val numberPair: MutableList<Int> = mutableListOf()
+    fun getNumberPairs(line: String, rowIndex: Int, lines: List<String>, numbers: MutableList<Number>): List<List<Int>> {
+        val numberPairs: MutableList<List<Int>> = mutableListOf()
+        var colIndex = 0
 
         for (char in line) {
             if (isGear(char)) {
-                // TODO: Implement logic to find the two numbers adjacent to the gear symbol
+
+                val numberPair: MutableList<Int> = mutableListOf()
+
+                // Find adjacent numbers in the same row as the gear symbol
+                val leftNumber = getAdjacentNumber(rowIndex, colIndex-1, lines, numbers)
+                addNumberToPair(leftNumber, numberPair)
+
+                val rightNumber = getAdjacentNumber(rowIndex, colIndex+1, lines, numbers)
+                addNumberToPair(rightNumber, numberPair)
+
+                // Find adjacent numbers above the gear symbol
+                val diagonallyAboveLeft = getAdjacentNumber(rowIndex-1, colIndex-1, lines, numbers)
+                addNumberToPair(diagonallyAboveLeft, numberPair)
+
+                val diagonallyAboveRight = getAdjacentNumber(rowIndex-1, colIndex+1, lines, numbers)
+                addNumberToPair(diagonallyAboveRight, numberPair)
+
+                // Find adjacent numbers below the gear symbol
+                val diagonallyBelowLeft = getAdjacentNumber(rowIndex+1, colIndex-1, lines, numbers)
+                addNumberToPair(diagonallyBelowLeft, numberPair)
+
+                val diagonallyBelowRight = getAdjacentNumber(rowIndex+1, colIndex+1, lines, numbers)
+                addNumberToPair(diagonallyBelowRight, numberPair)
+
+                numberPairs.add(numberPair)
             }
+            colIndex+=1
         }
 
-        return numberPair
+        return numberPairs
+    }
+
+    private fun addNumberToPair(number: Number?, numberPair: MutableList<Int>) {
+        var isDuplicate = false
+        if (number != null) {
+            for (numberX in numberPair) {
+                if (numberX == number.value) {
+                    isDuplicate = true
+                }
+            }
+            if (!isDuplicate) {
+                numberPair.add(number.value)
+            }
+        }
     }
 
     private fun isGear(char: Char): Boolean {
@@ -217,20 +259,19 @@ class Day03 {
     }
 
     private fun getAdjacentNumber(row: Int, column: Int, lines: List<String>,
-                                  numbers: MutableList<Number>): Number {
+                                  numbers: MutableList<Number>): Number? {
 
         val maxRow = lines.size - 1
         val maxColumn = lines[0].length - 1
-        val number = Number()
 
         if (row > maxRow || column > maxColumn || row < 0 || column < 0) {
-            return number
+            return null
         }
 
-        if (isDigit(row, column, lines)) {
-            return findNumberAtLocation(row, column, numbers)
+        return if (isDigit(row, column, lines)) {
+            findNumberAtLocation(row, column, numbers)
         } else {
-            return number
+            null
         }
     }
 
