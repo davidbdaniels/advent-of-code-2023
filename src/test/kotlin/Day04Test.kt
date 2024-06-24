@@ -34,4 +34,11 @@ class Day04Test {
     fun testConvertWinningNumberCountToCardPoints_when5_return16() {
         assertEquals(16, day04.convertToCardPoints(5))
     }
+
+    @Test
+    fun testGetTotalCards() {
+        val map = mapOf(1 to 3, 2 to 2, 3 to 1, 4 to 0)
+        val result = day04.getTotalCards(map)
+        assertEquals(10, result)
+    }
 }

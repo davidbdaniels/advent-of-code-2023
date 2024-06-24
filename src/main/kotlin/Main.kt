@@ -5,7 +5,7 @@ import java.io.File
 const val INPUT_DIRECTORY = "advent-of-code_input-files"
 
 fun main() {
-    day04Main()
+    day04bMain()
 }
 
 fun day01Main() {
@@ -129,6 +129,20 @@ fun day04Main() {
     for (cardPoint in cardPoints) {
         finalAnswer += cardPoint
     }
+
+    println("---------------------------------")
+    println("Final Answer: $finalAnswer")
+    println("---------------------------------")
+}
+
+fun day04bMain() {
+
+    // Read a file and parse into separate lines
+    val lines = File("$INPUT_DIRECTORY/Day04_Input_Example.txt").readLines()
+
+    val day04 = Day04()
+    val cardCounts = day04.getCardCountByLineNumber(lines)
+    val finalAnswer = day04.getTotalCards(cardCounts)
 
     println("---------------------------------")
     println("Final Answer: $finalAnswer")
