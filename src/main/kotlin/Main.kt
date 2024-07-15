@@ -5,7 +5,7 @@ import java.io.File
 const val INPUT_DIRECTORY = "advent-of-code_input-files"
 
 fun main() {
-    day04bMain()
+    day05Main()
 }
 
 fun day01Main() {
@@ -28,7 +28,6 @@ fun day01Main() {
 fun day02Main() {
 
     val day02 = Day02()
-    var finalAnswer = 0
     val possibleGameIds: MutableList<Int> = mutableListOf()
 
     // Read a file and parse into separate lines
@@ -43,7 +42,7 @@ fun day02Main() {
         println("Possible Game ID: $possibleGameId")
     }
 
-    finalAnswer = day02.addIds(possibleGameIds)
+    val finalAnswer = day02.addIds(possibleGameIds)
     println("Final Answer: $finalAnswer")
 }
 
@@ -53,7 +52,6 @@ fun day02bMain() {
     val day02b = Day02b()
 
     val powers: MutableList<Int> = mutableListOf()
-    var sumOfPowers = 0
 
     // Read a file and parse into separate lines
     val lines = File("$INPUT_DIRECTORY/Day02_Input.txt").readLines()
@@ -64,7 +62,7 @@ fun day02bMain() {
         powers.add(powerOfCubes)
     }
 
-    sumOfPowers = day02.addIds(powers)
+    val sumOfPowers = day02.addIds(powers)
     println("Final Answer: $sumOfPowers")
 }
 
@@ -143,6 +141,27 @@ fun day04bMain() {
     val day04 = Day04()
     val cardCounts = day04.getCardCountByLineNumber(lines)
     val finalAnswer = day04.getTotalCards(cardCounts)
+
+    println("---------------------------------")
+    println("Final Answer: $finalAnswer")
+    println("---------------------------------")
+}
+
+fun day05Main() {
+
+    // Read a file and parse into separate lines
+    val lines = File("$INPUT_DIRECTORY/Day05_Input.txt").readLines()
+
+    val day05 = Day05()
+    val locationNumbers: MutableList<Int> = mutableListOf()
+
+    val seedNumbers = day05.getInitialSeedNumbers(lines)
+    for (seedNumber: Int in seedNumbers) {
+        val locationNumber = day05.findLocationNumber(seedNumber, lines)
+        locationNumbers.add(locationNumber)
+    }
+
+    val finalAnswer = 0
 
     println("---------------------------------")
     println("Final Answer: $finalAnswer")
